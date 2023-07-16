@@ -3,8 +3,13 @@
 *.pyo
 __pycache__/
 
+# pytest
+.coverage
+.coverage.*
+.pytest_cache/
+
 # Virtual Environment
 venv/
 
-# Data files
+# Images
 data/
