@@ -11,11 +11,9 @@ from src.data_processing import create_df, normalize_data, create_data_splits, p
 def test_create_df():
     df = pd.DataFrame(np.random.rand(1700, 10))
     num_labels = 10
-    truncated_df, labels = create_df(df, num_labels)
+    truncated_df = create_df(df, num_labels)
     assert isinstance(truncated_df, pd.DataFrame)
-    assert isinstance(labels, np.ndarray)
-    assert truncated_df.shape == (num_labels*170, 10)
-    assert labels.shape == (num_labels*170,)
+    assert truncated_df.shape == (num_labels*170, 11)
 
 def test_normalize_data():
     df = pd.DataFrame(np.random.rand(1700, 10))

@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from .knn import KNNClassifier
 
+
 def run_single_split(knn_model, X_train, y_train, X_test, y_test):
     """Run the KNN model for a single split of the data."""
     knn_model.fit(X_train, y_train)
@@ -25,24 +26,25 @@ def run_knn_model(X_train_all, y_train_all, X_test_all, y_test_all, labels_list,
     count = 0
     results_df = pd.DataFrame(columns=["k_value", "distance_algo", "number_of_labels", "training_test_pair", "average_accuracy", "std_accuracy", "computation_time"])
     for X_train_splits, y_train_splits, X_test_splits, y_test_splits in zip(X_train_all, y_train_all, X_test_all, y_test_all):
+        # get the current label, training examples and test cases
         if count % 2 == 0:
             current_label = labels_list[count//2]
         current_training_examples, current_testing_values = train_test_pairs[count%2]
         count += 1
-        start_time = time.time()
         
-        accuracy_list = run_all_splits(knn_model, X_train_splits, y_train_splits, X_test_splits, y_test_splits)
-            
+        start_time = time.time()     
+        accuracy_list = run_all_splits(knn_model, X_train_splits, y_train_splits, X_test_splits, y_test_splits)   
         end_time = time.time()
+        
         computation_time = end_time - start_time
-        print(computation_time)
         average_accuracy = np.mean(accuracy_list)
         std_accuracy = np.std(accuracy_list)
+        
         print(f'Using {current_label} labels, {current_training_examples} training examples and {current_testing_values} test cases PER SUBJECT over 5 random splits:')
-        print(f'Average accuracy: {average_accuracy:.3f}                           Standard deviation over accuracy: {std_accuracy:.3f}')
-        print('------------------------------------------------------------------------------------------')
+        print(f'Average accuracy: {average_accuracy:.3f} Standard deviation over accuracy: {std_accuracy:.3f} Computation time: {computation_time:.6f}s')
+        print('----------------------------------------------------------------------------------------------------')
         
         results_to_append = pd.DataFrame([[current_k, distance, current_label, f"{current_training_examples}_{current_testing_values}", average_accuracy, std_accuracy, computation_time]], columns=column_list) 
         results_df = pd.concat([results_df, results_to_append], ignore_index=True) 
-    print('==========================================================================================')
+    print('====================================================================================================')
     return results_df

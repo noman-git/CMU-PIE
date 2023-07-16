@@ -14,12 +14,13 @@ def create_pivot_table(df, group_by_columns, value_columns):
         
 def plot_pivot_tables(pivot_tables, group_by_columns, values_columns):
     """Display pivot tables in bar charts"""
+    # Plot a 3 subplots for each group_by_column on a single row
     for i, group_by_column in enumerate(group_by_columns):
         fig, axs = plt.subplots(1, len(values_columns), figsize=(15, 5))
         for j, value_column in enumerate(values_columns):
             key = f"pivot_table_{group_by_column[:3]}_{value_column[:3]}"
             sorted_values = pivot_tables[key].sort_values(ascending=value_column!='average_accuracy')
-            sorted_values.plot(ax=axs[j], kind='bar')
+            sorted_values.plot(ax=axs[j], kind='bar', rot=90)
             axs[j].set_title(f'Mean of {value_column} across {group_by_column}')
             axs[j].set_xlabel(group_by_column)
             axs[j].set_ylabel(value_column)

@@ -6,7 +6,7 @@ import seaborn as sns
 
 
 def analyze_correlations(data):
-    # Calculate the covariance matrix
+    """Analyze the correlations between the features."""
     cov_matrix = np.cov(data, rowvar=False)
 
     # Get the off-diagonal elements
@@ -23,15 +23,15 @@ def analyze_correlations(data):
     print("\n")
     return cov_matrix
 
-# Plot the covariance matrix
 def plot_cov_matrix(cov_matrix, title='Covariance Matrix Heatmap'):
+    """Plot the covariance matrix heatmap."""
     plt.figure(figsize=(10,10))
     sns.heatmap(cov_matrix, cmap='coolwarm', center=0)
     plt.title(title)
     plt.show()
     
 def calc_n_components(data, variance=0.99):
-    # Initialize a PCA model with a variance that explains 95% of the variance
+    """Calculate the number of components that explain a given variance."""
     pca = PCA(n_components=variance)
     pca.fit(data)
     print(f"{pca.n_components_} components explain {variance} of the variance.")
@@ -39,8 +39,9 @@ def calc_n_components(data, variance=0.99):
     return pca.n_components_
 
 def create_pca_df(data, n_components):
-    # Initialize a PCA model 
+    """Create a dataframe with the PCA components."""
     pca = PCA(n_components=n_components)
+    
     # Apply PCA to data
     data_array = pca.fit_transform(data)
     return pd.DataFrame(data_array)
