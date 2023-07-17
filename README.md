@@ -21,4 +21,4 @@
 # Difference between both
 1) The notebooks save the resulting dataframes as csv files which are then used to visualize the results with the **_visualize_results_** notebook. The main.py file skips the saving step and straight away visualizes the results.
 
-2) The notebooks are not that optimized and there may be redundant code but they are easy to see the flow of the code. The main.py file and the source code files in the **src** directory are written to remove redundancy as best as possible, with **PEP8** guidelines and in a more **modular** fashion. They are easy to **test** as well and may require only a few modification when the code is being productionized.
+2) The notebooks may have some redundant code and just a bit more messy (Most of the code has been refactored though) but they are easy to see the flow of the code. The main.py file and the source code files in the **src** directory are written to remove redundancy as best as possible, with **PEP8** guidelines and in a more **modular** fashion. They are easy to **test** as well and may require only a few modification when the code is being productionized.
