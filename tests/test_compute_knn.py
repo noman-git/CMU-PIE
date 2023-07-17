@@ -1,15 +1,14 @@
-import pytest
 import numpy as np
 import pandas as pd
 import sys
 
-
+# go to the parent directory
 sys.path.insert(0, '.')
 
 from src.compute_knn import run_single_split, run_all_splits, run_knn_model
 from src.knn import KNNClassifier
 
-def test_run_single_split():
+def test_run_single_split() -> None:
     # Create a simple dataset
     X_train = np.array([[1, 2], [3, 4]])
     y_train = np.array([0, 1])
@@ -22,7 +21,7 @@ def test_run_single_split():
     accuracy = run_single_split(knn, X_train, y_train, X_test, np.array([0]))
     assert accuracy == 1.0
 
-def test_run_all_splits():
+def test_run_all_splits() -> None:
     # Create a simple dataset
     X_train = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
     y_train = np.array([[0, 1], [1, 0]])
@@ -36,7 +35,7 @@ def test_run_all_splits():
     accuracy_list = run_all_splits(knn, X_train, y_train, X_test, y_test)
     assert np.array_equal(accuracy_list, np.array([1.0, 1.0]))
 
-def test_run_knn_model():
+def test_run_knn_model() -> None:
     # Create a simple dataset
     X_train_all = np.array([[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]])
     y_train_all = np.array([[[0, 1], [1, 0]]])

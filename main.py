@@ -18,9 +18,9 @@ results_df = pd.DataFrame(columns=["k_value", "distance_algo", "number_of_labels
                                    "average_accuracy", "std_accuracy", "computation_time"])
 
 # Set to True if you want to use PCA
-pca = True
+pca = False
 # Set to True if you want to visualize the covariance matrices
-pca_visualize = True
+pca_visualize = False
 
 if pca:
     from src.pca_data import calc_n_components, create_pca_df # importing only if needed 

@@ -1,7 +1,7 @@
 import numpy as np
 import sys
 
-
+# go to the parent directory
 sys.path.insert(0, '.')
 
 from src.knn import KNNClassifier

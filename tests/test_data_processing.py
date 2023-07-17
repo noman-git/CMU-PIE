@@ -1,42 +1,40 @@
-import pytest
 import pandas as pd
 import numpy as np
 import sys
 
-
+# go to the parent directory
 sys.path.insert(0, '.')
 
-from src.data_processing import create_df, normalize_data, create_data_splits, pre_process_data, extract_features_and_labels, prepare_data
+from src.data_processing import create_df, normalize_data, create_data_splits, pre_process_data, extract_features_and_labels, prepare_data, NUM_SPLITS
 
-def test_create_df():
+def test_create_df() -> None:
     df = pd.DataFrame(np.random.rand(1700, 10))
     num_labels = 10
     truncated_df = create_df(df, num_labels)
     assert isinstance(truncated_df, pd.DataFrame)
     assert truncated_df.shape == (num_labels*170, 11)
 
-def test_normalize_data():
+def test_normalize_data() -> None:
     df = pd.DataFrame(np.random.rand(1700, 10))
     normalized_df = normalize_data(df)
     assert isinstance(normalized_df, pd.DataFrame)
     assert normalized_df.shape == df.shape
     assert np.allclose(normalized_df.apply(np.linalg.norm, axis=1), 1)
 
-def test_create_data_splits():
+def test_create_data_splits() -> None:
     df = pd.DataFrame(np.random.rand(1700, 11))
     df.columns = list(range(10)) + ['label']
     df['label'] = np.repeat(np.arange(10), 170)
     num_labels = 10
     train_rows = 100
     test_rows = 70
-    num_splits = 5
-    train_dfs_list, test_dfs_list = create_data_splits(df, num_labels, train_rows, test_rows, num_splits)
+    train_dfs_list, test_dfs_list = create_data_splits(df, num_labels, train_rows, test_rows)
     assert isinstance(train_dfs_list, list)
     assert isinstance(test_dfs_list, list)
-    assert len(train_dfs_list) == num_splits
-    assert len(test_dfs_list) == num_splits
+    assert len(train_dfs_list) == NUM_SPLITS
+    assert len(test_dfs_list) == NUM_SPLITS
 
-def test_pre_process_data():
+def test_pre_process_data() -> None:
     df = pd.DataFrame(np.random.rand(1700, 10))
     num_labels = 10
     train_rows = 100
@@ -45,7 +43,7 @@ def test_pre_process_data():
     assert isinstance(train_dfs_list, list)
     assert isinstance(test_dfs_list, list)
 
-def test_extract_features_and_labels():
+def test_extract_features_and_labels() -> None:
     df = pd.DataFrame(np.random.rand(1700, 11))
     df.columns = list(range(10)) + ['label']
     df['label'] = np.repeat(np.arange(10), 170)
@@ -56,7 +54,7 @@ def test_extract_features_and_labels():
     assert len(X) == len(dfs_list)
     assert len(y) == len(dfs_list)
 
-def test_prepare_data():
+def test_prepare_data() -> None:
     df = pd.DataFrame(np.random.rand(1700, 10))
     labels_list = [10, 7, 5]
     train_test_pairs = [(150, 20), (100, 70)]

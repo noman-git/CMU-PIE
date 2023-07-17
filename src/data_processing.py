@@ -4,13 +4,13 @@ from sklearn.model_selection import train_test_split
 
 
 # Constants
-examples_per_label = 170
-num_splits = 5
+EXAMPLES_PER_LABEL = 170
+NUM_SPLITS = 5
 
 def create_df(dataframe, num_labels):
     """Create a dataframe with a specified number of labels."""
-    labels = np.repeat(np.arange(num_labels), examples_per_label)
-    dataframe = dataframe.iloc[:num_labels*examples_per_label].copy()
+    labels = np.repeat(np.arange(num_labels), EXAMPLES_PER_LABEL)
+    dataframe = dataframe.iloc[:num_labels*EXAMPLES_PER_LABEL].copy()
     dataframe['label'] = labels
     return dataframe
 
@@ -19,15 +19,15 @@ def normalize_data(raw_dataframe):
     normalized_data_array = raw_dataframe.values / np.linalg.norm(raw_dataframe.values, axis=1, keepdims=True)
     return pd.DataFrame(normalized_data_array, columns=raw_dataframe.columns)
 
-def create_data_splits(normalized_data_dataframe, num_labels, train_rows, test_rows, num_splits):
+def create_data_splits(dataframe, num_labels, train_rows, test_rows):
     """Create data splits for training and testing."""
     train_dfs_list = []
     test_dfs_list = []
-    for i in range(num_splits):
+    for i in range(NUM_SPLITS):
         train_data = []
         test_data = []
         for label in range(num_labels):
-            label_data = normalized_data_dataframe[normalized_data_dataframe['label'] == label].copy()
+            label_data = dataframe[dataframe['label'] == label].copy()
             train_label_data, test_label_data = train_test_split(label_data,
                                                                  train_size=train_rows,
                                                                  test_size=test_rows,
@@ -41,7 +41,7 @@ def create_data_splits(normalized_data_dataframe, num_labels, train_rows, test_r
 def pre_process_data(data, num_labels, train_rows, test_rows):
     """Run the pre-processing steps."""
     truncated_df = create_df(data, num_labels) #create the df
-    return create_data_splits(truncated_df, num_labels, train_rows, test_rows, num_splits) #create the data splits
+    return create_data_splits(truncated_df, num_labels, train_rows, test_rows) #create the data splits
 
 def extract_features_and_labels(dfs_list):
     """Create X and y from a list of dataframes."""
