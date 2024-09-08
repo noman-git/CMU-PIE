@@ -3,16 +3,16 @@
 > pip3 install -r requirements.txt
 # How to run
 ## Method 1) Jupyter notebooks
-### 1) Install Jupyter notebook
+1) Install Jupyter notebook
 > pip3 install notebook
-### 2) Update the path to fea.csv in the notebooks (for visualiztion notebook update the path for both csv files as well)
-### 3) Run the notebooks (You can tell by name which notebook is which)  
+2) Update the path to fea.csv in the notebooks (for visualiztion notebook update the path for both csv files as well)
+3) Run the notebooks (You can tell by name which notebook is which)  
 
 ## Method 2) main.py file
-### 1) Simply update the path to fea.csv in the file and run the code.
-### 2) By default the main.py file computes the KNN after performing PCA. To change that behaviour you can set the value of the variable in the main.py file:
+1) Simply update the path to fea.csv in the file and run the code.
+2) By default the main.py file computes the KNN after performing PCA. To change that behaviour you can set the value of the variable in the main.py file:
 ```pca = True``` to ```pca = False```
-### 3) You can also change whether you want to visualize the covariance matrices or not. If you have set pca to False as above then you won't see the matrices. But if you want to do PCA without plotting the matrices, set the variable below the pca variable to False.
+3) You can also change whether you want to visualize the covariance matrices or not. If you have set pca to False as above then you won't see the matrices. But if you want to do PCA without plotting the matrices, set the variable below the pca variable to False.
 ```pca_visualize = True``` to ```pca_visualize = False```
 
 
